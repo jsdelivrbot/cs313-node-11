@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <form action="/math" method="GET">
+        <input type="number" id="operand1" name="operand1"/>
+        <select id="operator" name="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="x">x</option>
+            <option value="/">/</option>
+        </select>
+        <input type="number" id="operand2" name="operand2"/>
+        <input type="submit" value="Submit" />
+    </form>
+    <span id="result"></span>
+<button id="getResultJson">Get Result</button>
+<script>
+        let btn = document.querySelector('#getResultJson');
+        btn.addEventListener('click', (e) => {
+            //get data
+
+            let op1 = parseInt(document.querySelector("#operand1").value);
+            let op2 = parseInt(document.querySelector("#operand2").value);
+            let operator = document.querySelector("#operator").value;
+            if (operator == " ")
+                operator = "+";
+
+            //ajax call to math_service
+            xhttp = new XMLHttpRequest();
+            let url = '/math_service?' +
+                'op1='+op1+
+                '&op2='+op2+
+                '&op='+encodeURIComponent(operator);
+
+            xhttp.open("GET", url, true);
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    loadData(this);
+                }
+            }
+            xhttp.send();
+        })
+
+        function loadData(xhttp) {
+            console.log(xhttp.response);
+            let res = xhttp.response;
+            res = JSON.parse(res);
+            let resultHTML = document.querySelector("#result");
+            resultHTML.innerHTML = res.first + " " + res.operator + " " +
+                                   res.second + " = " + res.result;
+        }
+
+</script>
+</body>
+</html>
