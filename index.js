@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+const postageC = require('./calculatePostagePrice');
 const url = require('url');
 const PORT = process.env.PORT || 5000
 
@@ -39,9 +40,10 @@ express()
         res.send(JSON.stringify(obj));
     })
     .get('/postageCalculator', (req, res) => {
-        let weight = req.query.wieght;
+        let weight = parseFloat(req.query.weight);
         let type = req.query.type;
-        let price = calculatePostage(weight, type);
+        let price = postageC.calculatePostage(weight, type);
+        //postageC.test();
         let obj = {
             'weight': weight,
             'type': type,
@@ -71,6 +73,3 @@ function calculate(x, y, op){
     }
 }
 
-function calculatePostage(weight, type){
-    return 1.00;
-}
