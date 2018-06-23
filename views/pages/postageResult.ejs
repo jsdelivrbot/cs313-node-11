@@ -9,7 +9,7 @@
     <h2>Results</h2>
     <p>Weight: <%= weight %></p>
     <p>Type: <%= type %></p>
-    <p>Price: <%= price %></p>
+    <p>Price: <%= (price < 0) ? 'invalid weight':price %></p>
 </div>
 
 </body>

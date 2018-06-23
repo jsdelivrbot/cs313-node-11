@@ -17,7 +17,8 @@ function calculatePostage(weight, type){
             }
         }
     }
-
+    if (index < 0)
+        return -1;
     return prices[index.toString()][type];
 }
 

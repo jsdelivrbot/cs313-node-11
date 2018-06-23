@@ -43,7 +43,6 @@ express()
         let weight = parseFloat(req.query.weight);
         let type = req.query.type;
         let price = postageC.calculatePostage(weight, type);
-        //postageC.test();
         let obj = {
             'weight': weight,
             'type': type,
