@@ -18,7 +18,7 @@ function calculatePostage(weight, type){
         }
     }
 
-    return prices[index.toString()git ][type];
+    return prices[index.toString()][type];
 }
 
 exports.test = function (){
