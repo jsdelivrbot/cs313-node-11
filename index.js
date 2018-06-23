@@ -43,11 +43,19 @@ express()
         let weight = parseFloat(req.query.weight);
         let type = req.query.type;
         let price = postageC.calculatePostage(weight, type);
+        let typeNames = {
+            'stamped': 'Letter (Stamped)',
+            'metered': 'Letter (Metered)',
+            'flat': 'Large Envelope (Flat)',
+            'retail': 'First-Class Package Service - Retail'
+        };
+
         let obj = {
             'weight': weight,
-            'type': type,
+            'type': typeNames[type],
             'price': price
         }
+
         console.log(obj);
         res.render('pages/postageResult', obj);
     })
