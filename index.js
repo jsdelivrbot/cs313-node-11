@@ -38,6 +38,18 @@ express()
         console.log(obj);
         res.send(JSON.stringify(obj));
     })
+    .get('/postageCalculator', (req, res) => {
+        let weight = req.query.wieght;
+        let type = req.query.type;
+        let price = calculatePostage(weight, type);
+        let obj = {
+            'weight': weight,
+            'type': type,
+            'price': price
+        }
+        console.log(obj);
+        res.render('pages/postageResult', obj);
+    })
 .listen(PORT, () => console.log(`listening on port ${ PORT }`));
 
 function calculate(x, y, op){
@@ -57,4 +69,8 @@ function calculate(x, y, op){
         default:
             return x + y;
     }
+}
+
+function calculatePostage(weight, type){
+    return 1.00;
 }

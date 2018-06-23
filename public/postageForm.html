@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <form action="/postageCalculator" method="GET">
+        <p>
+            <label>Weight</label>
+            <input type="number" id="weight" name="weight"/>
+        </p>
+        <p>
+            <label>Type</label>
+            <select id="type" name="type">
+                <option value="stamped">Letter (Stamped)</option>
+                <option value="metered">Letter (Metered)</option>
+                <option value="flat">Large Envelope (Flat)</option>
+                <option value="retail">First-Class Package Service - Retail</option>
+            </select>
+        </p>
+        <input type="submit" value="Submit" />
+    </form>
+</body>
+</html>
