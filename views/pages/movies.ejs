@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies</title>
+</head>
+<body>
+<div class="container">
+    <h2>Movies</h2>
+    <input id="searchInput" placeholder="search movies" />
+    <div style="width: 50%" id="searchOutput"></div>
+    <script>
+        const KEY = "ac159576";
+        const API_KEY = "apikey=" + KEY;
+        const test_query = "i=tt3896198";
+        const BASE_URL = "http://www.omdbapi.com/?";
+        const ENTER_KEY = 13;
+        let sInput = document.querySelector("#searchInput");
+        let sOutput = document.querySelector("#searchOutput");
+
+        sInput.addEventListener('keydown', (e) => {
+            if (e.keyCode == ENTER_KEY) {
+                let userInput = sInput.value; //get key value obj from form inputs
+                let test_obj = { 't': userInput };
+                let queryURL  = buildQuery(test_obj); //pass key value obj
+                let xhttp = new XMLHttpRequest();
+                xhttp.open("GET", queryURL, true);
+                xhttp.onreadystatechange = () => {
+                    if (xhttp.readyState == XMLHttpRequest.DONE &&
+                        xhttp.status == 200){
+                        handleResponse(xhttp.response);
+                    } else if (xhttp.readyState == XMLHttpRequest.LOADING) {
+                        sOutput.innerHTML = "Loading...";
+                    }
+                }
+                xhttp.send();
+            }
+        })
+
+        function handleResponse(res){
+            sOutput.innerHTML = "";
+            let parsed = JSON.parse(res);
+            let img = document.createElement("img");
+            img.src = parsed.Poster;
+            sOutput.appendChild(img);
+
+            // DEBUG LINE TO SEE JSON RESPONSE in dom
+            // sOutput.innerHTML = JSON.stringify(parsed, null, 2);
+            console.log(parsed);
+        }
+
+        function buildQuery(userInput){
+            //example "http://www.omdbapi.com/?i=tt3896198&apikey=ac159576";
+            let base = BASE_URL;
+            for (query in userInput){
+                base += query + "=" + userInput[query] + "&";
+            }
+            base += API_KEY;
+            return base;
+        }
+    </script>
+</div>
+
+</body>
+</html>

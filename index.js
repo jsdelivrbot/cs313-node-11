@@ -39,6 +39,9 @@ express()
         console.log(obj);
         res.send(JSON.stringify(obj));
     })
+    .get('/movies', (req, res) => {
+        res.render('pages/movies');
+    })
     .get('/postageCalculator', (req, res) => {
         let weight = parseFloat(req.query.weight);
         let type = req.query.type;
